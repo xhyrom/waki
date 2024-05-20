@@ -1,4 +1,4 @@
-import { getMainProvider, parseProviders, verify } from "./utils";
+import { cloneFormData, getMainProvider, parseBody, parseProviders, verify } from "./utils";
 
 export default {
 	async fetch(request: Request, env: Env, _: ExecutionContext): Promise<Response> {
@@ -17,14 +17,14 @@ export default {
 
 		providers.sort((a, _) => (a.name === mainProvider?.name ? 1 : -1));
 
-		const body = request.body !== null ? request.body : null;
+		const body = request.body ? await parseBody(request) : null;
 
 		let res: Response;
 		for (const provider of providers) {
 			const url = new URL(provider.url);
 			url.pathname += baseUrl.pathname;
 
-			if (request.body !== null) {
+			if (body !== null) {
 				// @ts-expect-error expected
 				res = await fetch(url.toString(), {
 					method: request.method,
@@ -32,7 +32,7 @@ export default {
 						...request.headers,
 						authorization: `Bearer ${btoa(provider.token)}`,
 					},
-					body: body,
+					body: body(),
 				});
 			} else {
 				// @ts-expect-error expected

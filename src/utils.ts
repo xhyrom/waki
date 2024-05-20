@@ -28,3 +28,32 @@ export function parseProviders(providers: string): Provider[] {
 export function getMainProvider(providers: Provider[], main: string): Provider | undefined {
 	return providers.find((provider) => provider.name === main) ?? providers[0];
 }
+
+export async function parseBody(request: Request): Promise<() => BodyInit> {
+	const contentType = request.headers.get("content-type");
+	if (contentType === "multipart/form-data" || contentType === "application/x-www-form-urlencoded") {
+		const data = await request.formData();
+		return () => cloneFormData(data);
+	}
+
+	if (contentType === "application/json") {
+		const data = await request.json();
+		return () => JSON.stringify(data);
+	}
+
+	const text = await request.text();
+	return () => text;
+}
+
+export function cloneFormData(data: FormData) {
+	const form = new FormData();
+	for (const [key, value] of data.entries()) {
+		if (value instanceof File) {
+			form.append(key, value, value.name);
+		} else {
+			form.append(key, value);
+		}
+	}
+
+	return form;
+}
