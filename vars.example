@@ -1,0 +1,6 @@
+# token you'll use in .wakatime.cfg
+API_TOKEN=random token that you want to use
+
+# providers you want to use
+PROVIDERS=[{"name":"wakatime","url":"https://api.wakatime.com/api/v1","token":"your api key"}]
+MAIN_PROVIDER="wakatime"
