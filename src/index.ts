@@ -1,4 +1,4 @@
-import { cloneFormData, getMainProvider, parseBody, parseProviders, verify } from "./utils";
+import { getMainProvider, parseBody, parseProviders, verify } from "./utils";
 
 export default {
 	async fetch(request: Request, env: Env, _: ExecutionContext): Promise<Response> {
