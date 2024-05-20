@@ -1,4 +1,4 @@
-# token you'll use in .wakatime.cfg
+# token you'll use in .wakatime.cfg, must be UUID v4 
 API_TOKEN=random token that you want to use
 
 # providers you want to use

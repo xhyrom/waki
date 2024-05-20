@@ -18,7 +18,7 @@ pnpm run deploy
 
 Then, you need to set the following environment variables in your Cloudflare account:
 
-- `API_TOKEN` - randomly generated token that will be used to authenticate requests
+- `API_TOKEN` - random UUID v4 that will be used to authenticate requests
 - `PROVIDERS` - list of WakaTime instances (in JSON format)
 - `MAIN_PROVIDER` - main WakaTime instance which will be used to retrieve the user's data, etc...
 
