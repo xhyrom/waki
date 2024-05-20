@@ -38,7 +38,8 @@ export async function parseBody(request: Request): Promise<() => BodyInit> {
 
 	if (contentType === "application/json") {
 		const data = await request.json();
-		return () => JSON.stringify(data);
+		const stringified = JSON.stringify(data);
+		return () => stringified;
 	}
 
 	const text = await request.text();
