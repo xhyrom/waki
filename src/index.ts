@@ -23,14 +23,17 @@ export default {
 		for (const provider of providers) {
 			const url = new URL(provider.url);
 			url.pathname += baseUrl.pathname;
+			url.searchParams.append("api_key", provider.token);
+
+			const headers = new Headers(request.headers);
+			headers.delete("Authorization");
 
 			if (body !== null) {
 				// @ts-expect-error expected
 				res = await fetch(url.toString(), {
 					method: request.method,
 					headers: {
-						...request.headers,
-						authorization: `Bearer ${btoa(provider.token)}`,
+						...headers,
 					},
 					body: body(),
 				});
@@ -39,8 +42,7 @@ export default {
 				res = await fetch(url.toString(), {
 					method: request.method,
 					headers: {
-						...request.headers,
-						authorization: `Bearer ${btoa(provider.token)}`,
+						...headers,
 					},
 				});
 			}
