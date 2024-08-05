@@ -4,8 +4,7 @@ Runs fully on [Cloudflare Workers](https://workers.cloudflare.com/).
 
 ## Requirements
 
-- [node.js](https://nodejs.org/)
-- [pnpm](https://pnpm.js.org/)
+- [bun](https://bun.sh)
 - [cloudflare account](https://cloudflare.com)
 
 ## How to setup
@@ -13,7 +12,7 @@ Runs fully on [Cloudflare Workers](https://workers.cloudflare.com/).
 After cloning the repository and installing the dependencies, you need to run the following command to deploy the worker:
 
 ```bash
-pnpm run deploy
+bun run deploy
 ```
 
 Then, you need to set the following environment variables in your Cloudflare account:
