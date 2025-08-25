@@ -3,6 +3,8 @@ import { getMainProvider, parseBody, parseProviders, verify } from "./utils";
 export default {
 	async fetch(request: Request, env: Env, _: ExecutionContext): Promise<Response> {
 		if (!verify(request, env.API_TOKEN)) {
+			if (!request.headers.get("user-agent")?.startsWith("wakatime")) return Response.redirect("https://github.com/xhyrom/waki");
+
 			return new Response("Unauthorized", { status: 401 });
 		}
 
